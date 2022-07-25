@@ -24,12 +24,21 @@ lightbox.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.nodeName !== "IMG") return;
   const source = e.target.dataset.source;
-  const instance = basicLightbox.create(`
-     <img src="${source}" width="800" height="600">
-`);
+  const instance = basicLightbox.create(
+    `<img src="${source}" width="800" height="600">`,
+    {
+      onShow: (instance) => {
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") instance.close();
+        });
+      },
+    }
+  );
 
   instance.show();
 });
+console.log(galleryItems);
+
 
 // const onClick = (e) => {
 //   e.preventDefault();
@@ -46,4 +55,4 @@ lightbox.addEventListener("click", (e) => {
 
 // lightbox.addEventListener("click", onClick);
 
-console.log(galleryItems);
+
